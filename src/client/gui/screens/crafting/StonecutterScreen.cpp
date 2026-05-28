@@ -1,5 +1,5 @@
 #include "StonecutterScreen.h"
-#include "../../../../item/crafting/Recipes.h"
+#include "../../../world/item/crafting/Recipes.h"
 #include "../../components/InventoryPane.h"
 #include "../../components/ItemPane.h"
 #include "../../components/RolledSelectionList.h"
