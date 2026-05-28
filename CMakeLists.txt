@@ -301,6 +301,8 @@ file(GLOB CLIENT_SOURCES
 # Ensure extra source files we add manually get compiled (helps when CMake wasn't re-run after adding files)
 list(APPEND SERVER_SOURCES "src/world/item/crafting/ExtraRecipes.cpp")
 list(APPEND CLIENT_SOURCES "src/world/item/crafting/ExtraRecipes.cpp")
+list(APPEND SERVER_SOURCES "src/world/item/crafting/StonecutterRecipe.cpp")
+list(APPEND CLIENT_SOURCES "src/world/item/crafting/StonecutterRecipe.cpp")
 
 if (${PLATFORM} STREQUAL "Desktop")
     list(APPEND CLIENT_SOURCES glad/src/glad.c)
