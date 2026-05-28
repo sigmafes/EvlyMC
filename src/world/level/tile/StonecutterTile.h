@@ -4,7 +4,7 @@
 #include "../../../client/gui/screens/crafting/StonecutterScreen.h"
 #include "../../../client/gui/screens/ScreenChooser.h"
 #include "Tile.h"
-#include "../../entity/Player.h"
+#include "../../entity/player/Player.h"
 
 class StonecutterTile : public Tile {
 public:
