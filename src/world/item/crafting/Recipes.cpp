@@ -17,8 +17,21 @@
 /*static*/
 Recipes* Recipes::instance = NULL;
 
+void Recipes::addStoneCutterRecipe(int outputId, int outputAux, int inputId) {
+    ItemInstance result(outputId, 1, outputAux);
+    ItemInstance ingredient(inputId, 1, 0);
+    std::vector<ItemInstance> ingredients;
+    ingredients.push_back(ingredient);
+    recipes.push_back(new ShapelessRecipe(result, ingredients));
+}
+
 Recipes::Recipes()
 {
+	addStoneCutterRecipe(Tile::deepslatePolished->id, 0, Tile::cobbledDeepslate->id);
+	addStoneCutterRecipe(Tile::deepslateTiles->id, 0, Tile::deepslatePolished->id);
+	addStoneCutterRecipe(Tile::deepslate->id, 0, Tile::cobbledDeepslate->id);
+	addStoneCutterRecipe(Tile::deepslateBricks->id, 0, Tile::deepslate->id);
+
 	ToolRecipes::addRecipes(this);
 	WeaponRecipes::addRecipes(this);
 	OreRecipes::addRecipes(this);

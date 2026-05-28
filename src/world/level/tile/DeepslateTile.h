@@ -1,47 +1,27 @@
-#ifndef DEEPSLATE_TILE_H
-#define DEEPSLATE_TILE_H
+#pragma once
 
-#include "Tile.h"
-#include "../../../util/Random.h"
-#include "../material/Material.h"
+#include "src/world/level/tile/StoneTile.h"
 
-class DeepslateTile : public Tile {
+class PolishedDeepslateTile : public StoneTile {
 public:
-    int resourceId;
-    int resCountMin;
-    int resCountMax;
-    int resAux;
-
-    // Implementación inline para evitar errores de enlace (undefined reference)
-    DeepslateTile(int id, int textureIndex) 
-        : Tile(id, textureIndex, Material::stone) 
-    {
-        this->resourceId = id; // Por defecto se suelta a sí mismo
-        this->resCountMin = 1;
-        this->resCountMax = 1;
-        this->resAux = 0;
-
-        // El tiempo de destrucción es ligeramente mayor que el de la piedra normal (1.5f)
-        this->setDestroyTime(2.0f);
-        this->setExplodeable(6.0f);
-        this->setSoundType(SOUND_STONE);
+    PolishedDeepslateTile(int id) : StoneTile(id) {
+        tex = 2 * 16 + 1; // Texture from terrain2.png
+        setNameId("polished_deepslate");
     }
-
-    // Método para configurar el drop como un ore
-    DeepslateTile* setResource(int id, int min = 1, int max = 1, int aux = 0) {
-        this->resourceId = id;
-        this->resCountMin = min;
-        this->resCountMax = max;
-        this->resAux = aux;
-        return this;
-    }
-
-    virtual int getResource(int data, Random* random) override { return resourceId; }
-    virtual int getResourceCount(Random* random) override { 
-        if (resCountMin == resCountMax) return resCountMin;
-        return resCountMin + random->nextInt(resCountMax - resCountMin + 1);
-    }
-    virtual int getSpawnResourcesAuxValue(int data) override { return resAux; }
 };
 
-#endif // DEEPSLATE_TILE_H
+class DeepslateTilesTile : public StoneTile {
+public:
+    DeepslateTilesTile(int id) : StoneTile(id) {
+        tex = 3 * 16 + 1; // Texture from terrain2.png
+        setNameId("deepslate_tiles");
+    }
+};
+
+class DeepslateBricksTile : public StoneTile {
+public:
+    DeepslateBricksTile(int id) : StoneTile(id) {
+        tex = 4 * 16 + 1; // Texture from terrain2.png
+        setNameId("deepslate_bricks");
+    }
+};
