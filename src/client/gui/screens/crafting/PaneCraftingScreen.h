@@ -39,6 +39,7 @@ class PaneCraftingScreen:	public Screen,
 	typedef Screen super;
 	typedef std::vector<CItem*> ItemList;
 public:
+    PaneCraftingScreen(const RecipeList& recipes);
     PaneCraftingScreen(int craftingSize);
 	~PaneCraftingScreen();
 

@@ -5,11 +5,11 @@
 #include "../../components/ScrolledSelectionList.h"
 
 StonecutterScreen::StonecutterScreen()
-:   super(Recipes::getInstance()->stoneCutterRecipes)
+:   super(Recipes::getInstance()->getRecipes())
 {
 }
 
 bool StonecutterScreen::filterRecipe(const Recipe& recipe)
 {
-    return true;
+    return recipe.getRecipeType() == RecipeType::StoneCutter;
 }

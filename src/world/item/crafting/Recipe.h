@@ -10,6 +10,11 @@
 
 class CraftingContainer;
 
+enum RecipeType {
+    Crafting,
+    StoneCutter
+};
+
 class ItemPack {
 public:
 	typedef std::map<int, int> Map;
@@ -37,7 +42,7 @@ public:
 	static const int SIZE_3X3;// = 1;
 	static const int ANY_AUX_VALUE = -1;
 
-	virtual ~Recipe() {}
+	virtual ~Recipe() = default;
     virtual bool matches(CraftingContainer* craftSlots) = 0;
 	virtual const ItemPack& getItemPack() { return myItems; }
 	virtual int getMaxCraftCount(ItemPack& fromItems) = 0;
@@ -52,6 +57,8 @@ public:
 	}
 
 	virtual int getCraftingSize() = 0;
+
+    virtual RecipeType getRecipeType() const { return RecipeType::Crafting; }
 private:
 	static bool isAnyAuxValue(int id);
 protected:

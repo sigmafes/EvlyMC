@@ -56,6 +56,34 @@ private:
 	NinePatchLayer* statePressed;
 };
 
+PaneCraftingScreen::PaneCraftingScreen(const RecipeList& recipes)
+:	craftingSize(0),
+	currentCategory(-1),
+	currentItem(NULL),
+	pane(NULL),
+	btnCraft(1),
+	btnClose(2, ""),
+	selectedCategoryButton(NULL),
+	guiBackground(NULL),
+	guiSlotCategory(NULL),
+	guiSlotCategorySelected(NULL),
+	numCategories(4)
+{
+    for (int i = 0; i < numCategories; ++i) {
+        categoryBitmasks.push_back(1 << i);
+        categoryIcons.push_back(i);
+    }
+
+    RecipeList& filtered = const_cast<RecipeList&>(recipes);
+    filterRecipes(filtered);
+
+    for (unsigned int i = 0; i < filtered.size(); ++i)
+        addItem(filtered[i]);
+
+    recheckRecipes();
+}
+
+
 PaneCraftingScreen::PaneCraftingScreen(int craftingSize)
 :	craftingSize(craftingSize),
 	currentCategory(-1),

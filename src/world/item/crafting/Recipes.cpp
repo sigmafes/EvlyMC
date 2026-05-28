@@ -1,6 +1,7 @@
 #include "Recipes.h"
 #include "ShapedRecipe.h"
 #include "ShapelessRecipe.h"
+#include "StonecutterRecipe.h"
 
 #include "ClothDyeRecipes.h"
 #include "ToolRecipes.h"
@@ -20,9 +21,7 @@ Recipes* Recipes::instance = NULL;
 void Recipes::addStoneCutterRecipe(int outputId, int outputAux, int inputId) {
     ItemInstance result(outputId, 1, outputAux);
     ItemInstance ingredient(inputId, 1, 0);
-    std::vector<ItemInstance> ingredients;
-    ingredients.push_back(ingredient);
-    recipes.push_back(new ShapelessRecipe(result, ingredients));
+    recipes.push_back(new StonecutterRecipe(result, ingredient));
 }
 
 void Recipes::initStoneCutterRecipes() {
@@ -42,6 +41,8 @@ Recipes::Recipes()
 	ClothDyeRecipes::addRecipes(this);
 	// Add extra/community recipes kept in a separate translation unit
 	ExtraRecipes::addRecipes(this);
+
+	initStoneCutterRecipes();
 
 	addShapedRecipe(ItemInstance(Item::paper, 3), //
 		"###", //
@@ -289,7 +290,7 @@ Recipes::Recipes()
 	//	" B ", //
 	//	"###", //
 
-	//	'#', Tile::stoneBrick, 'B', Item::blazeRod);
+	//	'#', Tile::stoneBrick, 'B', Item::bl.azeRod);
 
 	//addShapedRecipe(ItemInstance(Tile::litPumpkin, 1), //
 	//	"A", //
