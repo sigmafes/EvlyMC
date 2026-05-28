@@ -1,8 +1,8 @@
 #pragma once
-    //e
+
 #include "../../item/crafting/Recipes.h"
 #include "../../../client/gui/screens/crafting/StonecutterScreen.h"
-#include "../../../client/gui/ScreenChooser.h"
+#include "../../../client/gui/screens/ScreenChooser.h"
 #include "Tile.h"
 
 class StonecutterTile : public Tile {
