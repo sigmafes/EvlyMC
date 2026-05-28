@@ -1,3 +1,4 @@
+
 #include "PaneCraftingScreen.h"
 #include "../touch/TouchStartMenuScreen.h"
 #include "../../Screen.h"
@@ -365,7 +366,7 @@ void PaneCraftingScreen::recheckRecipes() {
 		Recipe* recipe = item->recipe;
 		item->inventoryCount = ip.getCount(ItemPack::getIdForItemInstance(&item->item));
 		//item->maxBuildCount = recipe->getMaxCraftCount(ip);
-		// Override the canCraft thing, since I'm too lazy
+		// Override the canCraft thing, since I'''m too lazy
 		// to fix the above (commented out) function
 		std::vector<ItemInstance> items = recipe->getItemPack().getItemInstances();
 		for (unsigned int j = 0; j < items.size(); ++j) {
@@ -461,36 +462,16 @@ void PaneCraftingScreen::keyPressed( int eventKey )
 
 void PaneCraftingScreen::craftSelectedItem()
 {
-	if (!currentItem)
+	if (!currentItem || !currentItem->canCraft())
 		return;
-    if (!currentItem->canCraft())
-        return;
 
 	ItemInstance resultItem = currentItem->item;
 
 	if (minecraft->player) {
-		// Remove all items required for the recipe and ...
-		for (unsigned int i = 0; i < currentItem->neededItems.size(); ++i) {
-			CItem::ReqItem& req = currentItem->neededItems[i];
+		// Take the required items from the player's inventory
+		currentItem->recipe->consumeCraftingIngredients(minecraft->player->inventory);
 
-            // If the recipe allows any aux-value as ingredients, first deplete
-            // aux == 0 from inventory. Since I'm not sure if this always is
-            // correct, let's only do it for ingredient sandstone for now.
-            ItemInstance toRemove = req.item;
-
-            if (Tile::sandStone->id == req.item.id
-             && Recipe::ANY_AUX_VALUE == req.item.getAuxValue()) {
-                 toRemove.setAuxValue(0);
-                 toRemove.count = minecraft->player->inventory->removeResource(toRemove, true);
-                 toRemove.setAuxValue(Recipe::ANY_AUX_VALUE);
-            }
-
-            if (toRemove.count > 0) {
-                minecraft->player->inventory->removeResource(toRemove);
-            }
-		}
-		// ... add the new one! (in this order, to fill empty slots better)
-		// if it doesn't fit, throw it on the ground!
+		// Add the new item to the inventory. If it doesn't fit, drop it on the ground.
 		if (!minecraft->player->inventory->add(&resultItem)) {
 			minecraft->player->drop(new ItemInstance(resultItem), false);
 		}

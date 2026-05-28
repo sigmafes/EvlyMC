@@ -1,14 +1,12 @@
 #ifndef NET_MINECRAFT_WORLD_ITEM_CRAFTING__Recipe_H__
 #define NET_MINECRAFT_WORLD_ITEM_CRAFTING__Recipe_H__
 
-//package net.minecraft.world.item.crafting;
-
-//#include "../../inventory/CraftingContainer.h"
 #include "../ItemInstance.h"
 #include <map>
 #include <vector>
 
 class CraftingContainer;
+class Inventory;
 
 enum RecipeType {
     Crafting,
@@ -18,7 +16,6 @@ enum RecipeType {
 class ItemPack {
 public:
 	typedef std::map<int, int> Map;
-	//typedef std::vector<std::pair<int, int> > TypeCountList;
 
 	void add(int id, int count = 1);
 	int  getCount(int id) const;
@@ -38,8 +35,8 @@ private:
 class Recipe
 {
 public:
-	static const int SIZE_2X2;// = 0;
-	static const int SIZE_3X3;// = 1;
+	static const int SIZE_2X2;
+	static const int SIZE_3X3;
 	static const int ANY_AUX_VALUE = -1;
 
 	virtual ~Recipe() = default;
@@ -57,6 +54,8 @@ public:
 	}
 
 	virtual int getCraftingSize() = 0;
+
+    virtual void consumeCraftingIngredients(Inventory* inventory);
 
     virtual RecipeType getRecipeType() const { return RecipeType::Crafting; }
 private:

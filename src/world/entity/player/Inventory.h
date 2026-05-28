@@ -1,9 +1,8 @@
 #ifndef NET_MINECRAFT_WORLD_ENTITY_PLAYER__JInventory_H__
 #define NET_MINECRAFT_WORLD_ENTITY_PLAYER__JInventory_H__
 
-//package net.minecraft.world.entity.player;
-
 #include "../../inventory/FillingContainer.h"
+#include "../../inventory/BaseContainerMenu.h"
 #include <vector>
 
 class Tile;
@@ -12,7 +11,7 @@ class Player;
 class ListTag;
 class CompoundTag;
 
-class Inventory: public FillingContainer
+class Inventory: public FillingContainer, public BaseContainerMenu
 {
 	typedef FillingContainer super;
 public:
@@ -24,19 +23,19 @@ public:
 	~Inventory();
 
 	void clearInventoryWithDefault();
-	//
-	// Selection slots
-	//
+
 	void			selectSlot(int slot);
     ItemInstance*	getSelected();
     
 	static int		getSelectionSize();
-	// Special for this "selection based" inventory
+
 	bool			moveToSelectionSlot(int selectionSlot, int inventorySlot, bool propagate);
 	bool			moveToSelectedSlot(int inventorySlot, bool propagate);
 	bool			moveToEmptySelectionSlot(int inventorySlot);
 
 	bool			removeItem(const ItemInstance* samePtr);
+
+    int removeResource(ItemInstance& item, bool isAnyAuxValue);
 
 	void			doDrop(ItemInstance* item, bool randomly);
 	bool			stillValid(Player* player);
@@ -48,7 +47,6 @@ public:
 private:
 	void			setupDefault();
 public:
-	//ItemList armor;
 
     int selected;
     Player* player;

@@ -1,8 +1,6 @@
 #ifndef NET_MINECRAFT_WORLD_INVENTORY__BaseContainerMenu_H__
 #define NET_MINECRAFT_WORLD_INVENTORY__BaseContainerMenu_H__
 
-//package net.minecraft.world.inventory;
-
 #include <vector>
 #include "../item/ItemInstance.h"
 
@@ -30,11 +28,12 @@ public:
 	virtual void setSlot(int slot, ItemInstance* item) = 0;
 	virtual void setData( int id, int value ) {}
 
+    virtual int removeResource(ItemInstance& item, bool isAnyAuxValue) { return 0; };
+
 	virtual void setListener(IContainerListener* listener);
 	virtual void broadcastChanges();
 
 	virtual bool isResultSlot(int slot) { return false; }
-	//virtual bool stillValid( Player* player );
 	virtual bool tileEntityDestroyedIsInvalid( int tileEntityId ) = 0;
 
     int containerId;

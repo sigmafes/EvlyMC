@@ -1,6 +1,7 @@
 #include "Recipe.h"
 #include "../../../util/Mth.h"
 #include "../../level/tile/Tile.h"
+#include "../../entity/player/Inventory.h"
 
 void ItemPack::add( int id, int count /* = 1 */ )
 {
@@ -106,4 +107,11 @@ bool Recipe::isAnyAuxValue( int id )
 	 || id == Tile::sandStone->id)
 		return false;
 	return true;
+}
+
+void Recipe::consumeCraftingIngredients(Inventory* inventory) {
+    std::vector<ItemInstance> items = getItemPack().getItemInstances();
+    for (size_t i = 0; i < items.size(); ++i) {
+        inventory->removeResource(items[i]);
+    }
 }

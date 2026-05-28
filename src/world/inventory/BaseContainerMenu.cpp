@@ -1,5 +1,6 @@
 #include "BaseContainerMenu.h"
 #include "../item/ItemInstance.h"
+#include "../item/crafting/Recipe.h"
 
 BaseContainerMenu::BaseContainerMenu( int containerType )
 :   containerId(-1),
@@ -19,7 +20,6 @@ void BaseContainerMenu::setListener( IContainerListener* listener )
 
 void BaseContainerMenu::broadcastChanges()
 {
-	//LOGI("broadcast: Base. Listener: %p\n", listener);
 	if (!listener)
 		return;
 
@@ -34,7 +34,6 @@ void BaseContainerMenu::broadcastChanges()
 		ItemInstance& expected = lastSlots[i];
 		if (!ItemInstance::matches(&expected, &current)) {
 			expected = current;
-			//LOGI("Broadcasting a change!\n");
 			listener->slotChanged(this, i, expected, isResultSlot(i));
 		}
 	}
