@@ -216,6 +216,7 @@ file(GLOB SERVER_SOURCES
 
     "${PROJECT_ROOT}/src/world/phys/HitResult.cpp"
 )
+list(REMOVE_ITEM SERVER_SOURCES "${PROJECT_ROOT}/src/world/level/tile/OreFeature.cpp")
 
 file(GLOB CLIENT_SOURCES 
     "${PROJECT_ROOT}/src/client/*.cpp"
@@ -297,6 +298,7 @@ file(GLOB CLIENT_SOURCES
     "${PROJECT_ROOT}/src/AppPlatform_glfw.cpp"
     "${PROJECT_ROOT}/src/main.cpp"
 )
+list(REMOVE_ITEM CLIENT_SOURCES "${PROJECT_ROOT}/src/world/level/tile/OreFeature.cpp")
 
 # Ensure extra source files we add manually get compiled (helps when CMake wasn't re-run after adding files)
 list(APPEND SERVER_SOURCES "src/world/item/crafting/ExtraRecipes.cpp")
