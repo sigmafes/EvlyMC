@@ -25,13 +25,14 @@ void Recipes::addStoneCutterRecipe(int outputId, int outputAux, int inputId) {
     recipes.push_back(new ShapelessRecipe(result, ingredients));
 }
 
+void Recipes::initStoneCutterRecipes() {
+	addStoneCutterRecipe(Tile::deepslatePolished->id, 0, Tile::cobbledDeepslate->id);
+	addStoneCutterRecipe(Tile::deepslateTiles->id, 0, Tile::cobbledDeepslate->id);
+	addStoneCutterRecipe(Tile::deepslateBricks->id, 0, Tile::cobbledDeepslate->id);
+}
+
 Recipes::Recipes()
 {
-	addStoneCutterRecipe(Tile::deepslatePolished->id, 0, Tile::cobbledDeepslate->id);
-	addStoneCutterRecipe(Tile::deepslateTiles->id, 0, Tile::deepslatePolished->id);
-	addStoneCutterRecipe(Tile::deepslate->id, 0, Tile::cobbledDeepslate->id);
-	addStoneCutterRecipe(Tile::deepslateBricks->id, 0, Tile::deepslate->id);
-
 	ToolRecipes::addRecipes(this);
 	WeaponRecipes::addRecipes(this);
 	OreRecipes::addRecipes(this);

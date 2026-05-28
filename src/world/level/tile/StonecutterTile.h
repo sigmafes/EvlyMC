@@ -1,32 +1,34 @@
-#ifndef NET_MINECRAFT_WORLD_LEVEL_TILE__StonecutterTile_H__
-#define NET_MINECRAFT_WORLD_LEVEL_TILE__StonecutterTile_H__
+#pragma once
 
+#include "../../item/crafting/Recipes.h"
+#include "../../ui/screens/crafting/StonecutterScreen.h"
+#include "../../../client/gui/ScreenChooser.h"
 #include "Tile.h"
-#include "../Level.h"
-#include "../material/Material.h"
-#include "../../entity/player/Player.h"
 
-class StonecutterTile: public Tile
-{
-	typedef Tile super;
+class StonecutterTile : public Tile {
 public:
-    StonecutterTile(int id)
-	:	super(id, Material::stone)
-	{
-        tex = 13 + 16 * 2;
+    StonecutterTile(int id) : Tile(id, Material::stone) {
+        tex = 16 * 15 + 12;
+        secondary_tex = 16 * 15 + 11;
     }
 
-    int getTexture(int face) {
-		if (face == Facing::UP) return 9 + 10 * 16;
-		if (face == Facing::DOWN) return 14 + 3 * 16;
-		if (face == Facing::NORTH || face == Facing::SOUTH) return 8 + 10 * 16;
-		return tex;
+    virtual int getTexture(int side, int data) {
+        if (side == 1) {
+            return tex; // Top
+        } else if (side == 0) {
+            return 16 * 14 + 12; // Bottom
+        } else {
+            return secondary_tex; // Sides
+        }
     }
 
-	bool use(Level* level, int x, int y, int z, Player* player) {
-		player->startStonecutting(x, y, z);
+    virtual bool use(Level* level, int x, int y, int z, Player* player) {
+        if (level->isClientSide) {
+            Recipes::getInstance()->initStoneCutterRecipes();
+            player->getScreenChooser()->pushStonecutterScreen(x, y, z);
+        }
         return true;
     }
+protected:
+    int tex, secondary_tex;
 };
-
-#endif /*NET_MINECRAFT_WORLD_LEVEL_TILE__StonecutterTile_H__*/

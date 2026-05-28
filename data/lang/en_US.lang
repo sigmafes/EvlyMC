@@ -366,6 +366,18 @@ tile.stairsQuartz.name=Quartz Stairs
 tile.stairsSandStone.name=Sand Stone Stairs
 tile.stonecutter.name=Stonecutter
 
+tile.deepslate.name=Deepslate
+tile.deepslateCobbled.name=Cobbled Deepslate
+tile.deepslatePolished.name=Polished Deepslate
+tile.deepslateTiles.name=Deepslate Tiles
+tile.deepslateBricks.name=Deepslate Bricks
+tile.deepslateOreCoal.name=Deepslate Coal Ore
+tile.deepslateOreDiamond.name=Deepslate Diamond Ore
+tile.deepslateOreGold.name=Deepslate Gold Ore
+tile.deepslateOreIron.name=Deepslate Iron Ore
+tile.deepslateOreLapis.name=Deepslate Lapis Ore
+tile.deepslateOreRedstone.name=Deepslate Redstone Ore
+
 item.shovelIron.name=Iron Shovel
 item.pickaxeIron.name=Iron Pickaxe
 item.hatchetIron.name=Iron Axe
