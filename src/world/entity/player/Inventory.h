@@ -41,6 +41,10 @@ public:
 	bool			stillValid(Player* player);
 	bool			add(ItemInstance* item);
 
+    ItemList getItems() override;
+    void setSlot(int, ItemInstance*) override;
+    bool tileEntityDestroyedIsInvalid(int) override;
+
 	int				getAttackDamage(Entity* entity);
 	float			getDestroySpeed(Tile* tile);
 	bool			canDestroy(Tile* tile);

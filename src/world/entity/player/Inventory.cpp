@@ -13,6 +13,7 @@ Inventory::Inventory( Player* player, bool creativeMode )
 			MAX_SELECTION_SIZE,
 			ContainerType::INVENTORY,
 			creativeMode),
+	BaseContainerMenu(ContainerType::INVENTORY),
 	player(player),
 	selected(0)
 {
@@ -356,4 +357,65 @@ bool Inventory::removeItem( const ItemInstance* samePtr ) {
 		}
 	}
 	return false;
+}
+
+int Inventory::removeResource(ItemInstance& item, bool isAnyAuxValue) {
+    int removedCount = 0;
+    int toRemove = item.count;
+
+    if (isAnyAuxValue) {
+        for (int i = 0; i < getContainerSize() && toRemove > 0; ++i) {
+            ItemInstance* current = getItem(i);
+            if (current && current->id == item.id) {
+                int canRemove = std::min(toRemove, current->count);
+                current->count -= canRemove;
+                toRemove -= canRemove;
+                removedCount += canRemove;
+                if (current->count == 0) {
+                    setItem(i, nullptr);
+                }
+            }
+        }
+    } else {
+        for (int i = 0; i < getContainerSize() && toRemove > 0; ++i) {
+            ItemInstance* current = getItem(i);
+            if (current && current->id == item.id && current->aux == item.aux) {
+                int canRemove = std::min(toRemove, current->count);
+                current->count -= canRemove;
+                toRemove -= canRemove;
+                removedCount += canRemove;
+                if (current->count == 0) {
+                    setItem(i, nullptr);
+                }
+            }
+        }
+        if (toRemove > 0) {
+            for (int i = 0; i < getContainerSize() && toRemove > 0; ++i) {
+                ItemInstance* current = getItem(i);
+                if (current && current->id == item.id && current->aux == Recipe::ANY_AUX_VALUE) {
+                    int canRemove = std::min(toRemove, current->count);
+                    current->count -= canRemove;
+                    toRemove -= canRemove;
+                    removedCount += canRemove;
+                    if (current->count == 0) {
+                        setItem(i, nullptr);
+                    }
+                }
+            }
+        }
+    }
+    
+    return removedCount;
+}
+
+BaseContainerMenu::ItemList Inventory::getItems() {
+    return getSlotCopies();
+}
+
+void Inventory::setSlot(int slot, ItemInstance* item) {
+    setItem(slot, item);
+}
+
+bool Inventory::tileEntityDestroyedIsInvalid(int) {
+    return false;
 }
