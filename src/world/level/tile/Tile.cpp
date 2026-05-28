@@ -391,7 +391,7 @@ void Tile::initExtraTiles()
 	fenceGateBirch  = (new FenceGateTile(165, 5 | Tile::TEXTURE_ALT_FLAG))->init()->setDestroyTime(2.0f)->setExplodeable(5)->setSoundType(SOUND_WOOD)->setCategory(ItemCategory::Structures)->setDescriptionId("fenceGateBirch");
 
 	// Deepslate blocks (IDs 170-177)
-	deepslate            = ((Tile*)(new DeepslateTile(170, 6 | Tile::TEXTURE_ALT_FLAG)))->init()->setResource(171)->setCategory(ItemCategory::Structures)->setDescriptionId("deepslate");
+	deepslate            = (new DeepslateTile(170, 6 | Tile::TEXTURE_ALT_FLAG, 171))->init()->setCategory(ItemCategory::Structures)->setDescriptionId("deepslate");
 	cobbledDeepslate     = (new DeepslateTile(171, 7 | Tile::TEXTURE_ALT_FLAG))->init()->setCategory(ItemCategory::Structures)->setDescriptionId("deepslateCobbled");
 	deepslateCoalOre     = (new OreTile(172, 8 | Tile::TEXTURE_ALT_FLAG))->init()->setDestroyTime(3.0f)->setSoundType(SOUND_STONE)->setCategory(ItemCategory::Structures)->setDescriptionId("deepslateOreCoal");
 	deepslateDiamondOre  = (new OreTile(173, 9 | Tile::TEXTURE_ALT_FLAG))->init()->setDestroyTime(3.0f)->setSoundType(SOUND_STONE)->setCategory(ItemCategory::Structures)->setDescriptionId("deepslateOreDiamond");

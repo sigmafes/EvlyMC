@@ -3,9 +3,16 @@
 #include "StoneTile.h"
 
 class DeepslateTile : public Tile {
+protected:
+    int resourceId;
 public:
-    DeepslateTile(int id, int tex) : Tile(id, tex, Material::stone) {
-        
+    DeepslateTile(int id, int tex, int resId = 0) : Tile(id, tex, Material::stone) {
+        if (resId == 0) this->resourceId = id;
+        else this->resourceId = resId;
+    }
+
+    int getResource(int data, Random* random) {
+        return resourceId;
     }
 };
 
