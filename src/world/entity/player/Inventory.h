@@ -41,7 +41,7 @@ public:
 	bool			stillValid(Player* player);
 	bool			add(ItemInstance* item);
 
-    ItemList getItems() override;
+    BaseContainerMenu::ItemList getItems() override;
     void setSlot(int, ItemInstance*) override;
     bool tileEntityDestroyedIsInvalid(int) override;
 

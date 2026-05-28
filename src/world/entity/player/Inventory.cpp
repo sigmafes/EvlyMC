@@ -409,7 +409,17 @@ int Inventory::removeResource(ItemInstance& item, bool isAnyAuxValue) {
 }
 
 BaseContainerMenu::ItemList Inventory::getItems() {
-    return getSlotCopies();
+    BaseContainerMenu::ItemList result;
+    result.reserve(getContainerSize());
+    for (int i = 0; i < getContainerSize(); ++i) {
+        ItemInstance* item = getItem(i);
+        if (item) {
+            result.push_back(*item);
+        } else {
+            result.push_back(ItemInstance());
+        }
+    }
+    return result;
 }
 
 void Inventory::setSlot(int slot, ItemInstance* item) {
